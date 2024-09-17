@@ -1,0 +1,6 @@
+To upload data file to ESP32, You need to:
+1)Adjust plugin system to upload file to ESP32
+2)Boot the code to ESP32
+3) "CTR+SHIFT+P" and select " Upload LittleFS"
+*) You need to turn off serial monitor.
+*)You can adjust .html and .css files in data folder by turning them into text(.txt) file. Then return back extentions
