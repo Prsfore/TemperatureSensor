@@ -28,7 +28,7 @@ float maxTemp;
 int indexx=0;
 String ipString;
 String hostnameString;
-String serverName = "http://mes.yilbay.site/terminal/terminaldata";
+String serverName = "TERMNALDATA";// Adjust here
 
 // Get Data from WiFi
 AsyncWebServer server(80);
@@ -77,7 +77,7 @@ void IRAM_ATTR takeTemp(TimerHandle_t xTimer) {
 
 void tempTask(void *pvParameters) {
   while (1) {
-    vTaskDelay(400000 / portTICK_PERIOD_MS);  // 5 minutes and 10 sec
+    vTaskDelay(910000 / portTICK_PERIOD_MS);  // 15 minutes and 10 sec
     temperature=(temp[2]*3+temp[1]*2+temp[0])/6;
     temp[0]=0.0;
     temp[1]=0.0;
@@ -88,7 +88,7 @@ void tempTask(void *pvParameters) {
 }
 void keepAliveTask(void *pvParameters) {
   while (1) {
-    vTaskDelay(300000 / portTICK_PERIOD_MS);  // 5 minutes and 10 sec
+    vTaskDelay(900000 / portTICK_PERIOD_MS);  // 16 minutes
     KeepAlive();
   }
 }
@@ -120,7 +120,7 @@ void setup() {
 
   if(initWiFi()) {
     Serial.println("Connected the WiFi Successfully!");
-    int respond= SendMail("cemerensahin58@gmail.com","gzxertwaoxqvhnbi",mail,"smtp.gmail.com","Initialization",Message);
+    int respond= SendMail("Sender Gmail","gzxertwaoxqvhnbi",mail,"smtp.gmail.com","Initialization",Message); //Adjust Here
     tempTimer = xTimerCreate("TempTimer", pdMS_TO_TICKS(300000), pdTRUE, (void *)0, takeTemp); // take temp for each 5min
     if (tempTimer != NULL) {
       xTimerStart(tempTimer, 0);  // Start the timer (every 300,000 ms or 5 minutes)
@@ -204,7 +204,7 @@ void loop() {
     String serverPath = serverName + "?parametre1=" + String(MAC) + "&" + "parametre2=" + String(temperature) + "&" + "parametre3=" + "0"+ "&" + "parametre4=" + "0" + "&" + "parametre5=" + "U" + "&" + "IPAddr=" + ipString + "&" + "parametrehost=" + hostnameString;
     if(temperature>maxTemp){
       String mess="Current temperature (" + String(temperature) +") is higher your Max Temperature(" + String(maxTemp) + ") setup!";
-      int respond= SendMail("cemerensahin58@gmail.com","gzxertwaoxqvhnbi",mail,"smtp.gmail.com","Warning Over Heat",mess);
+      int respond= SendMail("Sender Gmail","gzxertwaoxqvhnbi",mail,"smtp.gmail.com","Warning Over Heat",mess);// Adjust Here
     }
     int respond= SendData(serverPath,"Core0");
     calculated=false;
